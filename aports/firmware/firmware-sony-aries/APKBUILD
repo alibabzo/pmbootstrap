@@ -1,0 +1,37 @@
+pkgname=firmware-sony-aries
+pkgver=1
+pkgrel=0
+pkgdesc="Firmware files for Xperia Z3 Compact"
+url="https://github.com/TheMuppets/proprietary_vendor_sony"
+arch="noarch"
+license="proprietary"
+depends="firmware-aosp-broadcom-wlan"
+options="!strip !check !archcheck"
+
+# Source
+_files="venus.b00 venus.b01 venus.b02 venus.b03 venus.b04 venus.mbn venus.mdt"
+_commit="77e54317f50cccb3e1d69422dad5e3da3c7ee238"
+_url="https://github.com/TheMuppets/proprietary_vendor_sony/raw/$_commit/shinano-common/proprietary/etc/firmware"
+source=""
+
+for _i in $_files; do
+	source="$source $pkgname-$_commit-$_i::$_url/$_i"
+done
+
+package() {
+	cd "$srcdir"
+
+	# /lib/firmware/postmarketos
+	for _i in $_files; do
+		install -D -m644 "$pkgname-$_commit-$_i" \
+			"$pkgdir/lib/firmware/postmarketos/$_i"
+	done
+}
+
+sha512sums="839dc8b470e43f0445a814a45d3ed6b4fa1bddcac5dbd769c3c2309f25d67b14c81745fd1087f6c5d4d046d430f572869ffd136484d33ec402e38bce74c695b5  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.b00
+8d8193f255a1fb95f09c1e9680e4416d485832f6d92fb35b0d9584edcb2b7188bc2df4cc98e71348eed24cfb360ce1a6ed413a1e8cea7d85b2f7e87125f48e29  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.b01
+465bc9b7804434c466f980de0b1e70b8259b2034ee671280631083c8f2e5b6d5e1cd031ff4e166e3797e3a8e9004d895872eb0b302695f157eeb8006072c7a1d  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.b02
+5c7a833bc8f2dfe2ae5e1b22ff34bb02c6fb558a558128aeb206726b5da8739322279a215002c881606bb2d4bb075f0d16a07e7bab9d80d01fb2ea9db81c66f6  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.b03
+3c3544528b44d39b205ac38944db67adb1d4a6e393256fdfa6958e580d09aa8a01196190d6cf64bd0fd8cdbf0399a8e8e87b5a7a62c6cd6b4b32db6d5390df26  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.b04
+afb3592c46710c8c8eaafddbe1b4816fe41ff7628d535c6508d38a99923c2000c5e9ed66607f4901c6342e1473e879a8341f5e356f06ffbbe567e1d0e957a582  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.mbn
+4ef7e9633a7376f369046ff86fe6d77f66558a2cf7ce9986a256868335638c9c9127919b1443741bddf96cb1afdf6fa32cead2ad0a76d8161c0aea10530bf4b4  firmware-sony-aries-77e54317f50cccb3e1d69422dad5e3da3c7ee238-venus.mdt"
